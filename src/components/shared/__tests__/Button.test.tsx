@@ -20,25 +20,34 @@ let props: any;
 let component: React.ReactElement;
 let testingLib: RenderResult;
 
+const getTestComponent = (propsParam: any) : React.ReactElement => {
+  return(
+    <ThemeProvider theme={createTheme(ThemeType.LIGHT)}>
+      <Button {...propsParam} />
+    </ThemeProvider>
+  )
+}
+
 describe('[Button]', () => {
   let cnt = 1;
 
   beforeEach(() => {
-    props = {
+    const props = {
       onClick: (): number => cnt++,
       testID: 'btn',
     };
-    component = (
-      <ThemeProvider theme={createTheme(ThemeType.LIGHT)}>
-        <Button {...props} />
-      </ThemeProvider>
-    );
+    component = getTestComponent(props);
   });
 
   it('renders without crashing', () => {
-    const rendered = renderer.create(component).toJSON();
-    expect(rendered).toMatchSnapshot();
-    expect(rendered).toBeTruthy();
+    const rendered = renderer.create(component);
+    expect(rendered.toJSON()).toMatchSnapshot();
+    expect(rendered.toJSON()).toBeTruthy();
+
+    rendered.update(getTestComponent({...props, isLoading: true}));
+    expect(rendered.toJSON()).toMatchSnapshot();
+    rendered.update(getTestComponent({...props, isDisabled: true}));
+    expect(rendered.toJSON()).toMatchSnapshot();
   });
 
   describe('interactions', () => {
