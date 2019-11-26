@@ -23,6 +23,7 @@ export interface ScreenProps {
 type StackParamList = {
   Intro: { userId: string };
   Temp: undefined;
+  TextSplitting: {};
 };
 
 export type DefaultNavigationProps<

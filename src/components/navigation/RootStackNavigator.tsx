@@ -4,6 +4,7 @@ import React from 'react';
 import { ScreenProps } from '../../types';
 import Temp from '../screen/Temp';
 import { createStackNavigator } from '@react-navigation/stack';
+import TextSplitting from '../screen/TextSplitting';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ function RootNavigator({
   return (
     <NavigationNativeContainer>
       <Stack.Navigator
-        initialRouteName="Intro"
+        initialRouteName="TextSplitting"
         screenOptions={{
           headerStyle: {
             backgroundColor: theme.background,
@@ -27,6 +28,7 @@ function RootNavigator({
       >
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Temp" component={Temp} />
+        <Stack.Screen name="TextSplitting" component={TextSplitting} />
       </Stack.Navigator>
     </NavigationNativeContainer>
   );

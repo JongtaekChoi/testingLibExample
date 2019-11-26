@@ -291,3 +291,6 @@ coverage/*
 
 # package-lock.json
 package-lock.json
+
+# .expo
+.expo
