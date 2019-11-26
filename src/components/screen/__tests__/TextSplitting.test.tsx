@@ -11,6 +11,14 @@ let props: any;
 let component: ReactElement;
 let testingLib: RenderResult;
 
+jest.mock('Alert', () => {
+  return {
+    alert: (title, message, buttons) => {
+      buttons[0].onPress();
+    }
+  }
+});
+
 describe('[TextSplitting] screen', () => {
   beforeEach(() => {
     props = createTestProps({});
