@@ -1,7 +1,7 @@
 import 'react-native';
 
 import React, { ReactElement } from 'react';
-import { RenderResult, render, act, fireEvent } from '@testing-library/react-native';
+import { RenderResult, act, fireEvent, render } from '@testing-library/react-native';
 import { createTestElement, createTestProps } from '../../../../test/testUtils';
 
 import TextSplitting from '../TextSplitting';
@@ -27,8 +27,10 @@ describe('[TextSplitting] screen', () => {
   it('interactions', () => {
     const input = testingLib.getByTestId('textInput');
     act(() => {
-      fireEvent.changeText(input, `I have a heart, too, HwaLan. If you trample my heart like this, then I'll be a gangster! Do I kidnap you like a gangster?`);
-    })
+      fireEvent.changeText(input, 'I have a heart, too, HwaLan. \
+      If you trample my heart like this, then I\'ll be a gangster! \
+      Do I kidnap you like a gangster?');
+    });
     const btn = testingLib.queryByTestId('removeBtn');
     act(() => {
       fireEvent.press(btn);

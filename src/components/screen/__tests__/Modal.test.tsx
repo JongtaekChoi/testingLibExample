@@ -1,7 +1,7 @@
 import 'react-native';
 
 import React, { ReactElement } from 'react';
-import { RenderResult, render } from '@testing-library/react-native';
+import { RenderResult, fireEvent, render } from '@testing-library/react-native';
 import { createTestElement, createTestProps } from '../../../../test/testUtils';
 
 import Modal from '../Modal';
@@ -13,7 +13,7 @@ let testingLib: RenderResult;
 
 describe('[Modal] screen', () => {
   beforeEach(() => {
-    props = createTestProps();
+    props = createTestProps({});
     component = createTestElement(<Modal {...props} />);
     testingLib = render(component);
   });
@@ -30,7 +30,8 @@ describe('[Modal] screen', () => {
     });
 
     it('should simulate onClick', () => {
-      
+      const openBtn = testingLib.getByTestId('openBtn');
+      fireEvent.press(openBtn);
     });
   });
 });
