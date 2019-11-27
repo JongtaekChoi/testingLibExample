@@ -29,6 +29,11 @@ interface Props {
   navigation: DefaultNavigationProps<'TextSplitting'>;
 }
 
+function splitText(origin: string) {
+  const text = origin.replace(/[.!?]/g, s => s + '\n');
+  return text.split('\n').filter(s => s != '')  
+}
+
 function Page(props: Props): ReactElement {
   const [ textValue, setTextValue ] = useState<string>(''); 
   const [ sentenseList, setSentenseList ] = useState<string[]>([''])
@@ -38,14 +43,14 @@ function Page(props: Props): ReactElement {
         testID="textInput"
         onChangeText={(text) => {
           setTextValue(text);
-          setSentenseList(text.split(/[.!?]/));
+          setSentenseList(splitText(text));
         }}
         value={textValue}
         multiline
         />
       { 
-        sentenseList.map((sentense: string): ReactElement => 
-          (<StyeldText>{sentense.trim()}</StyeldText>)) 
+        sentenseList.map((sentense: string, index): ReactElement => 
+          (<StyeldText key={sentense+index}>{sentense.trim()}</StyeldText>)) 
       }
       <Button 
         testID="removeBtn"
