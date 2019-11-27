@@ -1,8 +1,8 @@
 import React, { ReactElement, useState } from 'react';
 
+import { Alert } from 'react-native';
 import { DefaultNavigationProps } from '../../types';
 import styled from 'styled-components/native';
-import { Alert, TouchableOpacity } from 'react-native';
 import Button from '../shared/Button';
 
 const Container = styled.View`
@@ -29,40 +29,40 @@ interface Props {
   navigation: DefaultNavigationProps<'TextSplitting'>;
 }
 
-function splitText(origin: string) {
-  const text = origin.replace(/[.!?]/g, s => s + '\n');
-  return text.split('\n').filter(s => s != '')  
+function splitText(origin: string): string[] {
+  const text = origin.replace(/[.!?]/g, (s) => s + '\n');
+  return text.split('\n').filter((s) => s !== '');
 }
 
 function Page(props: Props): ReactElement {
-  const [ textValue, setTextValue ] = useState<string>(''); 
-  const [ sentenseList, setSentenseList ] = useState<string[]>([''])
+  const [textValue, setTextValue] = useState<string>('');
+  const [sentenseList, setSentenseList] = useState<string[]>(['']);
   return (
     <Container>
       <StyledTextInput
         testID="textInput"
-        onChangeText={(text) => {
+        onChangeText={(text: string): void => {
           setTextValue(text);
           setSentenseList(splitText(text));
         }}
         value={textValue}
         multiline
-        />
-      { 
-        sentenseList.map((sentense: string, index): ReactElement => 
-          (<StyeldText key={sentense+index}>{sentense.trim()}</StyeldText>)) 
+      />
+      {
+        sentenseList.map((sentense: string, index): ReactElement =>
+          (<StyeldText key={sentense + index}>{sentense.trim()}</StyeldText>))
       }
-      <Button 
+      <Button
         testID="removeBtn"
-        onClick={() => {
-          Alert.alert('Remove All','',[
+        onClick={(): void => {
+          Alert.alert('Remove All', '', [
             {
-              onPress: () => {
-                setTextValue('')
-                setSentenseList([])
-              }
+              onPress: (): void => {
+                setTextValue('');
+                setSentenseList([]);
+              },
             },
-          ])
+          ]);
         }}
         text="Remove All"
       />

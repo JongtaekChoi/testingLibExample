@@ -22,16 +22,16 @@ interface Props {
 }
 
 function Page(props: Props): ReactElement {
-  const modal: React.MutableRefObject<Modal | null>  = useRef({})
+  const modal: React.MutableRefObject<Modal | null> = useRef({});
   const [cnt, setCnt] = useState(0);
   const open = (): void => {
-    if(modal.current) {
+    if (modal.current) {
       modal.current.open();
     }
   };
   const close = (): void => {
-    if(modal.current) {
-      setCnt(cnt+1);
+    if (modal.current) {
+      setCnt(cnt + 1);
       modal.current.close();
     }
   };
@@ -41,13 +41,13 @@ function Page(props: Props): ReactElement {
       <Button
         testID="openBtn"
         onClick={open}
-        text='열기'/> 
+        text="열기"/>
       <Modal ref={modal}>
-          <Button
-            testID="closeBtn"
-            onClick={close}
-            text='닫기'
-          />
+        <Button
+          testID="closeBtn"
+          onClick={close}
+          text="닫기"
+        />
       </Modal>
     </Container>
   );
